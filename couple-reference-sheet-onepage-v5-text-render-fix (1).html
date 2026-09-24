@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2인 자컾 레퍼런스 시트 - 원페이지 v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111111;
+  --muted:#8a8a8a;
+  --line:#dddddd;
+  --soft:#f6f6f6;
+  --box:#d9d9d9;
+  --white:#ffffff;
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:#ececec;
+  color:var(--ink);
+  font-family:'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+button,input{font:inherit; color:inherit;}
+button{cursor:pointer;}
+
+.page{padding:22px 18px 40px;}
+.topbar{
+  max-width:1880px;
+  margin:0 auto 14px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+.top-left{display:flex; flex-direction:column; gap:4px;}
+.top-title{font-size:15px; font-weight:900; line-height:1.35;}
+.top-help{font-size:12px; color:var(--muted); line-height:1.55;}
+.action-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.action-btn{
+  border:1px solid #cfcfcf;
+  background:#fff;
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+}
+.action-btn.primary{background:#111; color:#fff; border-color:#111;}
+.save-status{font-size:12px; color:var(--muted);}
+
+.board-wrap{max-width:1880px; margin:0 auto; overflow-x:auto; padding-bottom:8px;}
+.export-frame{
+  display:inline-block;
+  padding:34px 18px 18px;
+  background:#ECECEC;
+  border-radius:28px;
+}
+.board{
+  width:1820px;
+  min-height:1280px;
+  margin:0 auto;
+  background:var(--white);
+  border-radius:20px;
+  box-shadow:0 12px 36px rgba(0,0,0,.08);
+  padding:52px 28px 28px;
+}
+
+.board-head{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:end;
+  gap:14px;
+  padding-top:18px;
+  padding-bottom:18px;
+  border-bottom:2px solid var(--ink);
+  margin-bottom:22px;
+}
+.board-side-note{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.6;
+  align-self:start;
+}
+.board-side-note.left{text-align:left;}
+.board-side-note.right{text-align:right;}
+.board-title-area{min-width:0; text-align:center;}
+.board-kicker{font-size:11px; font-weight:900; letter-spacing:.18em; color:var(--muted); margin-bottom:8px; line-height:1.45;}
+.board-name{
+  width:100%;
+  border:0;
+  border-bottom:2px solid var(--ink);
+  background:transparent;
+  outline:none;
+  padding:10px 2px 10px;
+  min-height:62px;
+  line-height:1.32;
+  font-size:34px;
+  font-weight:900;
+  text-align:center;
+}
+.board-name::placeholder,.name-input::placeholder,.sub-input::placeholder,.list-row input::placeholder{color:#b7b7b7; opacity:1;}
+
+.main-grid{
+  display:grid;
+  grid-template-columns:1.07fr .88fr 1.07fr;
+  gap:14px;
+  align-items:start;
+}
+
+.panel-kicker{font-size:11px; font-weight:900; letter-spacing:.16em; color:var(--muted); margin-bottom:10px; line-height:1.45;}
+.char-panel,.couple-panel{
+  background:var(--soft);
+  border:1px solid #e8e8e8;
+  border-radius:18px;
+  padding:16px;
+  min-width:0;
+}
+.name-row{
+  display:grid;
+  grid-template-columns:.95fr 1.25fr;
+  gap:10px;
+  margin-bottom:14px;
+}
+.name-input,.sub-input{
+  border:0;
+  border-bottom:1px solid var(--line);
+  background:transparent;
+  outline:none;
+  padding:2px 2px 8px;
+  min-width:0;
+  line-height:1.3;
+}
+.name-input{font-size:21px; font-weight:900; border-bottom:2px solid var(--ink); min-height:44px; line-height:1.3; padding-top:6px;}
+.sub-input{font-size:12px; color:#5c5c5c; min-height:38px; line-height:1.3; padding-top:6px;}
+
+.hero-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:10px; margin-bottom:12px;}
+.ref-card{min-width:0;}
+.mini-label{font-size:12px; font-weight:700; margin-bottom:6px; line-height:1.35; min-height:16px;}
+.imgbox{
+  position:relative;
+  background:var(--box);
+  border:1px solid #d0d0d0;
+  overflow:hidden;
+}
+.imgbox.hero.head{aspect-ratio:1/1; min-height:250px;}
+.imgbox.hero.full{aspect-ratio:3/4; min-height:330px;}
+.imgbox.small{aspect-ratio:1/1; min-height:116px;}
+.imgbox.animal{aspect-ratio:1/1; min-height:116px; max-width:116px;}
+.imgbox.outfit{aspect-ratio:4/5; min-height:180px;}
+.imgbox.couple-main{aspect-ratio:4/5; min-height:255px;}
+.imgbox input[type=file]{display:none;}
+.img-picker{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; cursor:pointer; outline:none;}
+.img-picker:focus-visible{outline:3px solid var(--ink); outline-offset:-3px;}
+.img-placeholder{color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.16); font-size:12px; font-weight:700; pointer-events:none; text-align:center; padding:0 8px;}
+.imgbox img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:none; background:#efefef; pointer-events:none;}
+.imgbox.has-image img{display:block;}
+.imgbox.has-image .img-placeholder{display:none;}
+.img-change{position:absolute; left:50%; bottom:8px; transform:translate(-50%,6px); padding:6px 10px; border-radius:999px; background:rgba(0,0,0,.58); color:#fff; font-size:10px; line-height:1; opacity:0; white-space:nowrap; transition:.16s ease; pointer-events:none;}
+.imgbox.has-image:hover .img-change,.imgbox.has-image .img-picker:focus-visible .img-change{opacity:1; transform:translate(-50%,0);}
+.img-remove{position:absolute; top:8px; right:8px; z-index:3; width:28px; height:28px; border:0; border-radius:50%; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.6); color:#fff; font-size:18px; padding:0 0 2px;}
+.imgbox.has-image .img-remove{display:flex;}
+.imgbox.dragover::after{content:'여기에 놓아주세요'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.48); color:#fff; font-size:13px; font-weight:700; z-index:5;}
+
+.detail-block{margin-top:12px;}
+.block-title{display:flex; align-items:baseline; gap:8px; font-size:14px; font-weight:900; margin-bottom:8px; line-height:1.3;}
+.block-title span{font-size:11px; font-weight:500; color:var(--muted);}
+.triple-grid{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:8px;}
+.double-grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px;}
+.single-small-grid{display:grid; grid-template-columns:auto; gap:8px; justify-content:start;}
+
+.text-stack{display:grid; gap:10px; margin-top:12px;}
+.write-card{display:flex; flex-direction:column; background:#fff; border:1px solid #e6e6e6; border-radius:14px; padding:10px 12px; min-width:0;}
+.write-title{font-size:13px; font-weight:900; margin-bottom:8px; line-height:1.35;}
+.list{display:grid; gap:0;}
+.list-row{display:flex; align-items:center; gap:10px; border-top:1px solid var(--line); min-height:34px; padding:4px 0;}
+.list-row .num{width:14px; flex-shrink:0; color:var(--muted); font-size:12px;}
+.list-row input{flex:1; min-width:0; border:0; background:transparent; outline:none; font-size:12px; line-height:1.4; padding:4px 0;}
+
+.couple-title{font-size:24px; font-weight:900; margin:0 0 8px; line-height:1.25; text-align:center;}
+.couple-sub{font-size:12px; color:var(--muted); margin:0 0 12px; line-height:1.6; text-align:center;}
+.couple-image-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;}
+.couple-text-grid{display:grid; grid-template-columns:1fr; gap:10px;}
+
+@media print{
+  body{background:#fff;}
+  .topbar{display:none !important;}
+  .board-wrap{overflow:visible;}
+  .board{box-shadow:none; margin:0;}
+  .img-remove,.img-change{display:none !important;}
+}
+</style>
+.capture-static{
+  box-sizing:border-box;
+  white-space:pre-wrap;
+  overflow:visible;
+}
+.capture-static.board-name,
+.capture-static.name-input,
+.capture-static.sub-input{
+  display:flex;
+  align-items:center;
+}
+.capture-static.board-name{
+  justify-content:center;
+}
+
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <div class="top-left">
+      <div class="top-title">2인 자컾 원페이지 레퍼런스 시트</div>
+      <div class="top-help">한 장 안에 전부 정리되도록 만든 개인용 보드형 시트. 위 버튼으로 PNG 저장 가능.</div>
+    </div>
+    <div class="action-row">
+      <span class="save-status" id="saveStatus" aria-live="polite">자동저장 준비됨</span>
+      <button class="action-btn primary" id="exportBtn" type="button">PNG로 저장</button>
+      <button class="action-btn" id="resetBtn" type="button">전체 초기화</button>
+    </div>
+  </div>
+
+  <div class="board-wrap">
+    <div class="export-frame" id="captureFrame"><main class="board" id="captureBoard">
+      <header class="board-head">
+        <div class="board-side-note left">A / B 캐릭터 자료</div>
+        <div class="board-title-area">
+          <div class="board-kicker">COUPLE REFERENCE BOARD</div>
+          <input class="board-name" data-save-key="couple-name" placeholder="자컾 이름 / 커플명" autocomplete="off">
+        </div>
+        <div class="board-side-note right">가운데는 2인 자료와 메모용</div>
+      </header>
+
+      <div class="main-grid">
+        
+    <section class="char-panel">
+      <div class="panel-kicker">CHARACTER A</div>
+      <div class="name-row">
+        <input class="name-input" data-save-key="a-name" placeholder="A 캐릭터 이름" autocomplete="off">
+        <input class="sub-input" data-save-key="a-sub" placeholder="애칭 / 구분 / 짧은 메모" autocomplete="off">
+      </div>
+
+      <div class="hero-grid">
+        
+    <div class="ref-card">
+      <div class="mini-label">두상</div>
+      <div class="imgbox hero head" data-image-box data-image-key="a-head">
+        <input type="file" id="a-head" accept="image/*">
+        <label class="img-picker" for="a-head" tabindex="0">
+          <span class="img-placeholder">큰 두상</span>
+          <img alt="두상">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="두상 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        
+    <div class="ref-card">
+      <div class="mini-label">전신</div>
+      <div class="imgbox hero full" data-image-box data-image-key="a-full">
+        <input type="file" id="a-full" accept="image/*">
+        <label class="img-picker" for="a-full" tabindex="0">
+          <span class="img-placeholder">큰 전신</span>
+          <img alt="전신">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="전신 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">동물화 <span>작은 참고 칸</span></div>
+        <div class="single-small-grid">
+          
+    <div class="ref-card">
+      <div class="mini-label">동물화</div>
+      <div class="imgbox small animal" data-image-box data-image-key="a-animal">
+        <input type="file" id="a-animal" accept="image/*">
+        <label class="img-picker" for="a-animal" tabindex="0">
+          <span class="img-placeholder">동물화 / SD</span>
+          <img alt="동물화">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="동물화 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">뿔 <span>앞 · 옆 · 뒤</span></div>
+        <div class="triple-grid">
+          
+    <div class="ref-card">
+      <div class="mini-label">앞</div>
+      <div class="imgbox small" data-image-box data-image-key="a-horn-front">
+        <input type="file" id="a-horn-front" accept="image/*">
+        <label class="img-picker" for="a-horn-front" tabindex="0">
+          <span class="img-placeholder">정면</span>
+          <img alt="앞">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="앞 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">옆</div>
+      <div class="imgbox small" data-image-box data-image-key="a-horn-side">
+        <input type="file" id="a-horn-side" accept="image/*">
+        <label class="img-picker" for="a-horn-side" tabindex="0">
+          <span class="img-placeholder">옆면</span>
+          <img alt="옆">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="옆 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">뒤</div>
+      <div class="imgbox small" data-image-box data-image-key="a-horn-back">
+        <input type="file" id="a-horn-back" accept="image/*">
+        <label class="img-picker" for="a-horn-back" tabindex="0">
+          <span class="img-placeholder">뒷면</span>
+          <img alt="뒤">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="뒤 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">꼬리 <span>앞 · 옆 · 뒤</span></div>
+        <div class="triple-grid">
+          
+    <div class="ref-card">
+      <div class="mini-label">앞</div>
+      <div class="imgbox small" data-image-box data-image-key="a-tail-front">
+        <input type="file" id="a-tail-front" accept="image/*">
+        <label class="img-picker" for="a-tail-front" tabindex="0">
+          <span class="img-placeholder">정면</span>
+          <img alt="앞">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="앞 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">옆</div>
+      <div class="imgbox small" data-image-box data-image-key="a-tail-side">
+        <input type="file" id="a-tail-side" accept="image/*">
+        <label class="img-picker" for="a-tail-side" tabindex="0">
+          <span class="img-placeholder">옆면</span>
+          <img alt="옆">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="옆 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">뒤</div>
+      <div class="imgbox small" data-image-box data-image-key="a-tail-back">
+        <input type="file" id="a-tail-back" accept="image/*">
+        <label class="img-picker" for="a-tail-back" tabindex="0">
+          <span class="img-placeholder">뒷면</span>
+          <img alt="뒤">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="뒤 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">의상 자료 <span>2장</span></div>
+        <div class="double-grid">
+          
+    <div class="ref-card">
+      <div class="mini-label">의상 01</div>
+      <div class="imgbox outfit" data-image-box data-image-key="a-outfit-1">
+        <input type="file" id="a-outfit-1" accept="image/*">
+        <label class="img-picker" for="a-outfit-1" tabindex="0">
+          <span class="img-placeholder">의상 1</span>
+          <img alt="의상 01">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="의상 01 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">의상 02</div>
+      <div class="imgbox outfit" data-image-box data-image-key="a-outfit-2">
+        <input type="file" id="a-outfit-2" accept="image/*">
+        <label class="img-picker" for="a-outfit-2" tabindex="0">
+          <span class="img-placeholder">의상 2</span>
+          <img alt="의상 02">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="의상 02 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        </div>
+      </div>
+
+      <div class="text-stack">
+        
+    <div class="write-card">
+      <div class="write-title">절대 빠지면 안 되는 특징</div>
+      <div class="list">
+          <div class="list-row">
+            <span class="num">1</span>
+            <input type="text" data-save-key="a-must-1" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">2</span>
+            <input type="text" data-save-key="a-must-2" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">3</span>
+            <input type="text" data-save-key="a-must-3" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">4</span>
+            <input type="text" data-save-key="a-must-4" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">5</span>
+            <input type="text" data-save-key="a-must-5" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+      </div>
+    </div>
+    
+        
+    <div class="write-card">
+      <div class="write-title">일반 특징</div>
+      <div class="list">
+          <div class="list-row">
+            <span class="num">1</span>
+            <input type="text" data-save-key="a-features-1" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">2</span>
+            <input type="text" data-save-key="a-features-2" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">3</span>
+            <input type="text" data-save-key="a-features-3" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">4</span>
+            <input type="text" data-save-key="a-features-4" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">5</span>
+            <input type="text" data-save-key="a-features-5" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+      </div>
+    </div>
+    
+      </div>
+    </section>
+    
+
+        <section class="couple-panel">
+          <div class="panel-kicker">COUPLE</div>
+          <h2 class="couple-title">자컾 메모</h2>
+          <p class="couple-sub">2인 자료와 필요한 공용 메모를 적어두는 칸.</p>
+
+          <div class="couple-image-grid">
+            
+    <div class="ref-card">
+      <div class="mini-label">2인</div>
+      <div class="imgbox couple-main" data-image-box data-image-key="couple-photo">
+        <input type="file" id="couple-photo" accept="image/*">
+        <label class="img-picker" for="couple-photo" tabindex="0">
+          <span class="img-placeholder">2인 사진</span>
+          <img alt="2인">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="2인 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+            
+    <div class="ref-card">
+      <div class="mini-label">포즈</div>
+      <div class="imgbox couple-main" data-image-box data-image-key="couple-pose">
+        <input type="file" id="couple-pose" accept="image/*">
+        <label class="img-picker" for="couple-pose" tabindex="0">
+          <span class="img-placeholder">포즈 참고</span>
+          <img alt="포즈">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="포즈 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          </div>
+
+          <div class="couple-text-grid">
+            
+    <div class="write-card">
+      <div class="write-title">관계도</div>
+      <div class="list">
+          <div class="list-row">
+            <span class="num">1</span>
+            <input type="text" data-save-key="relationship-1" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">2</span>
+            <input type="text" data-save-key="relationship-2" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">3</span>
+            <input type="text" data-save-key="relationship-3" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">4</span>
+            <input type="text" data-save-key="relationship-4" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">5</span>
+            <input type="text" data-save-key="relationship-5" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+      </div>
+    </div>
+    
+            
+    <div class="write-card">
+      <div class="write-title">기타사항</div>
+      <div class="list">
+          <div class="list-row">
+            <span class="num">1</span>
+            <input type="text" data-save-key="couple-extra-1" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">2</span>
+            <input type="text" data-save-key="couple-extra-2" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">3</span>
+            <input type="text" data-save-key="couple-extra-3" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">4</span>
+            <input type="text" data-save-key="couple-extra-4" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">5</span>
+            <input type="text" data-save-key="couple-extra-5" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+      </div>
+    </div>
+    
+            
+    <div class="write-card">
+      <div class="write-title">주의사항</div>
+      <div class="list">
+          <div class="list-row">
+            <span class="num">1</span>
+            <input type="text" data-save-key="couple-caution-1" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">2</span>
+            <input type="text" data-save-key="couple-caution-2" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">3</span>
+            <input type="text" data-save-key="couple-caution-3" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">4</span>
+            <input type="text" data-save-key="couple-caution-4" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">5</span>
+            <input type="text" data-save-key="couple-caution-5" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+      </div>
+    </div>
+    
+          </div>
+        </section>
+
+        
+    <section class="char-panel">
+      <div class="panel-kicker">CHARACTER B</div>
+      <div class="name-row">
+        <input class="name-input" data-save-key="b-name" placeholder="B 캐릭터 이름" autocomplete="off">
+        <input class="sub-input" data-save-key="b-sub" placeholder="애칭 / 구분 / 짧은 메모" autocomplete="off">
+      </div>
+
+      <div class="hero-grid">
+        
+    <div class="ref-card">
+      <div class="mini-label">두상</div>
+      <div class="imgbox hero head" data-image-box data-image-key="b-head">
+        <input type="file" id="b-head" accept="image/*">
+        <label class="img-picker" for="b-head" tabindex="0">
+          <span class="img-placeholder">큰 두상</span>
+          <img alt="두상">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="두상 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        
+    <div class="ref-card">
+      <div class="mini-label">전신</div>
+      <div class="imgbox hero full" data-image-box data-image-key="b-full">
+        <input type="file" id="b-full" accept="image/*">
+        <label class="img-picker" for="b-full" tabindex="0">
+          <span class="img-placeholder">큰 전신</span>
+          <img alt="전신">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="전신 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">동물화 <span>작은 참고 칸</span></div>
+        <div class="single-small-grid">
+          
+    <div class="ref-card">
+      <div class="mini-label">동물화</div>
+      <div class="imgbox small animal" data-image-box data-image-key="b-animal">
+        <input type="file" id="b-animal" accept="image/*">
+        <label class="img-picker" for="b-animal" tabindex="0">
+          <span class="img-placeholder">동물화 / SD</span>
+          <img alt="동물화">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="동물화 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">뿔 <span>앞 · 옆 · 뒤</span></div>
+        <div class="triple-grid">
+          
+    <div class="ref-card">
+      <div class="mini-label">앞</div>
+      <div class="imgbox small" data-image-box data-image-key="b-horn-front">
+        <input type="file" id="b-horn-front" accept="image/*">
+        <label class="img-picker" for="b-horn-front" tabindex="0">
+          <span class="img-placeholder">정면</span>
+          <img alt="앞">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="앞 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">옆</div>
+      <div class="imgbox small" data-image-box data-image-key="b-horn-side">
+        <input type="file" id="b-horn-side" accept="image/*">
+        <label class="img-picker" for="b-horn-side" tabindex="0">
+          <span class="img-placeholder">옆면</span>
+          <img alt="옆">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="옆 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">뒤</div>
+      <div class="imgbox small" data-image-box data-image-key="b-horn-back">
+        <input type="file" id="b-horn-back" accept="image/*">
+        <label class="img-picker" for="b-horn-back" tabindex="0">
+          <span class="img-placeholder">뒷면</span>
+          <img alt="뒤">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="뒤 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">꼬리 <span>앞 · 옆 · 뒤</span></div>
+        <div class="triple-grid">
+          
+    <div class="ref-card">
+      <div class="mini-label">앞</div>
+      <div class="imgbox small" data-image-box data-image-key="b-tail-front">
+        <input type="file" id="b-tail-front" accept="image/*">
+        <label class="img-picker" for="b-tail-front" tabindex="0">
+          <span class="img-placeholder">정면</span>
+          <img alt="앞">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="앞 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">옆</div>
+      <div class="imgbox small" data-image-box data-image-key="b-tail-side">
+        <input type="file" id="b-tail-side" accept="image/*">
+        <label class="img-picker" for="b-tail-side" tabindex="0">
+          <span class="img-placeholder">옆면</span>
+          <img alt="옆">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="옆 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">뒤</div>
+      <div class="imgbox small" data-image-box data-image-key="b-tail-back">
+        <input type="file" id="b-tail-back" accept="image/*">
+        <label class="img-picker" for="b-tail-back" tabindex="0">
+          <span class="img-placeholder">뒷면</span>
+          <img alt="뒤">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="뒤 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">의상 자료 <span>2장</span></div>
+        <div class="double-grid">
+          
+    <div class="ref-card">
+      <div class="mini-label">의상 01</div>
+      <div class="imgbox outfit" data-image-box data-image-key="b-outfit-1">
+        <input type="file" id="b-outfit-1" accept="image/*">
+        <label class="img-picker" for="b-outfit-1" tabindex="0">
+          <span class="img-placeholder">의상 1</span>
+          <img alt="의상 01">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="의상 01 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+          
+    <div class="ref-card">
+      <div class="mini-label">의상 02</div>
+      <div class="imgbox outfit" data-image-box data-image-key="b-outfit-2">
+        <input type="file" id="b-outfit-2" accept="image/*">
+        <label class="img-picker" for="b-outfit-2" tabindex="0">
+          <span class="img-placeholder">의상 2</span>
+          <img alt="의상 02">
+          <span class="img-change">클릭해서 변경</span>
+        </label>
+        <button class="img-remove" type="button" aria-label="의상 02 삭제" title="이미지 삭제">×</button>
+      </div>
+    </div>
+    
+        </div>
+      </div>
+
+      <div class="text-stack">
+        
+    <div class="write-card">
+      <div class="write-title">절대 빠지면 안 되는 특징</div>
+      <div class="list">
+          <div class="list-row">
+            <span class="num">1</span>
+            <input type="text" data-save-key="b-must-1" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">2</span>
+            <input type="text" data-save-key="b-must-2" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">3</span>
+            <input type="text" data-save-key="b-must-3" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">4</span>
+            <input type="text" data-save-key="b-must-4" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">5</span>
+            <input type="text" data-save-key="b-must-5" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+      </div>
+    </div>
+    
+        
+    <div class="write-card">
+      <div class="write-title">일반 특징</div>
+      <div class="list">
+          <div class="list-row">
+            <span class="num">1</span>
+            <input type="text" data-save-key="b-features-1" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">2</span>
+            <input type="text" data-save-key="b-features-2" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">3</span>
+            <input type="text" data-save-key="b-features-3" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">4</span>
+            <input type="text" data-save-key="b-features-4" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+          <div class="list-row">
+            <span class="num">5</span>
+            <input type="text" data-save-key="b-features-5" placeholder="내용을 입력해주세요" autocomplete="off">
+          </div>
+        
+      </div>
+    </div>
+    
+      </div>
+    </section>
+    
+      </div>
+    </main></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+(() => {
+  'use strict';
+
+  const TEXT_KEY = 'couple-onepage-v2-custom-text';
+  const DB_NAME = 'couple-onepage-v2-custom-images';
+  const STORE_NAME = 'images';
+
+  const textFields = [...document.querySelectorAll('[data-save-key]')];
+  const imageBoxes = [...document.querySelectorAll('[data-image-box]')];
+  const saveStatus = document.getElementById('saveStatus');
+  const exportBtn = document.getElementById('exportBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const board = document.getElementById('captureBoard');
+  const captureFrame = document.getElementById('captureFrame');
+
+  let textTimer = null;
+  let dbPromise = null;
+
+  const setStatus = (msg) => {
+    if (saveStatus) saveStatus.textContent = msg;
+  };
+
+  const openDB = () => {
+    if (dbPromise) return dbPromise;
+    dbPromise = new Promise((resolve, reject) => {
+      const request = indexedDB.open(DB_NAME, 1);
+      request.onupgradeneeded = () => {
+        const db = request.result;
+        if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME);
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    return dbPromise;
+  };
+
+  const putImage = async (key, file) => {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).put(file, key);
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+    });
+  };
+
+  const getImage = async (key) => {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, 'readonly');
+      const request = tx.objectStore(STORE_NAME).get(key);
+      request.onsuccess = () => resolve(request.result || null);
+      request.onerror = () => reject(request.error);
+    });
+  };
+
+  const deleteImage = async (key) => {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).delete(key);
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+    });
+  };
+
+  const clearImages = async () => {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).clear();
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+    });
+  };
+
+  const saveText = () => {
+    try {
+      const state = Object.fromEntries(textFields.map(el => [el.dataset.saveKey, el.value]));
+      localStorage.setItem(TEXT_KEY, JSON.stringify(state));
+      setStatus('자동저장됨');
+    } catch (error) {
+      setStatus('텍스트 자동저장 제한');
+    }
+  };
+
+  const queueTextSave = () => {
+    clearTimeout(textTimer);
+    setStatus('저장 중…');
+    textTimer = setTimeout(saveText, 180);
+  };
+
+  const restoreText = () => {
+    try {
+      const state = JSON.parse(localStorage.getItem(TEXT_KEY) || '{}');
+      textFields.forEach(el => {
+        if (typeof state[el.dataset.saveKey] === 'string') el.value = state[el.dataset.saveKey];
+      });
+    } catch (error) {
+      setStatus('텍스트 복원 제한');
+    }
+  };
+
+  const showImage = (box, blob) => {
+    const img = box.querySelector('img');
+    if (box.dataset.objectUrl) URL.revokeObjectURL(box.dataset.objectUrl);
+    const objectUrl = URL.createObjectURL(blob);
+    box.dataset.objectUrl = objectUrl;
+    img.src = objectUrl;
+    box.classList.add('has-image');
+  };
+
+  const clearPreview = (box) => {
+    const img = box.querySelector('img');
+    if (box.dataset.objectUrl) {
+      URL.revokeObjectURL(box.dataset.objectUrl);
+      delete box.dataset.objectUrl;
+    }
+    img.removeAttribute('src');
+    box.classList.remove('has-image');
+    const input = box.querySelector('input[type=file]');
+    if (input) input.value = '';
+  };
+
+  const handleFile = async (box, file) => {
+    if (!file || !file.type.startsWith('image/')) return;
+    const key = box.dataset.imageKey;
+    showImage(box, file);
+    setStatus('이미지 저장 중…');
+    try {
+      await putImage(key, file);
+      setStatus('자동저장됨');
+    } catch (error) {
+      setStatus('이미지는 현재 화면에서만 유지');
+    }
+  };
+
+  imageBoxes.forEach(box => {
+    const input = box.querySelector('input[type=file]');
+    const picker = box.querySelector('.img-picker');
+    const remove = box.querySelector('.img-remove');
+
+    input.addEventListener('change', () => handleFile(box, input.files?.[0]));
+
+    picker.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        input.click();
+      }
+    });
+
+    ['dragenter','dragover'].forEach(type => {
+      box.addEventListener(type, event => {
+        event.preventDefault();
+        box.classList.add('dragover');
+      });
+    });
+
+    ['dragleave','drop'].forEach(type => {
+      box.addEventListener(type, event => {
+        event.preventDefault();
+        box.classList.remove('dragover');
+      });
+    });
+
+    box.addEventListener('drop', event => {
+      const file = event.dataTransfer.files?.[0];
+      handleFile(box, file);
+    });
+
+    remove.addEventListener('click', async event => {
+      event.preventDefault();
+      event.stopPropagation();
+      clearPreview(box);
+      try {
+        await deleteImage(box.dataset.imageKey);
+        setStatus('이미지 삭제됨');
+      } catch (error) {
+        setStatus('이미지 삭제 저장 제한');
+      }
+    });
+  });
+
+  textFields.forEach(el => el.addEventListener('input', queueTextSave));
+
+  const restoreImages = async () => {
+    try {
+      await Promise.all(imageBoxes.map(async box => {
+        const blob = await getImage(box.dataset.imageKey);
+        if (blob) showImage(box, blob);
+      }));
+    } catch (error) {
+      setStatus('이미지 복원 제한');
+    }
+  };
+
+  resetBtn.addEventListener('click', async () => {
+    const ok = confirm('작성한 글과 첨부한 사진을 모두 초기화할까요? 이 작업은 되돌릴 수 없어요.');
+    if (!ok) return;
+    textFields.forEach(el => el.value = '');
+    imageBoxes.forEach(clearPreview);
+    localStorage.removeItem(TEXT_KEY);
+    try {
+      await clearImages();
+    } catch (error) {}
+    setStatus('전체 초기화됨');
+  });
+
+  exportBtn.addEventListener('click', async () => {
+    if (typeof html2canvas === 'undefined') {
+      alert('이미지 저장 기능을 불러오지 못했어요. 잠시 후 다시 시도하거나 인터넷 연결 상태를 확인해주세요.');
+      return;
+    }
+    setStatus('PNG 생성 중…');
+    exportBtn.disabled = true;
+    const originalText = exportBtn.textContent;
+    exportBtn.textContent = '저장 중…';
+
+    try {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+
+      const exportWidth = Math.ceil(captureFrame.scrollWidth);
+      const exportHeight = Math.ceil(captureFrame.scrollHeight);
+
+      const canvas = await html2canvas(captureFrame, {
+        backgroundColor: '#ECECEC',
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        width: exportWidth,
+        height: exportHeight,
+        windowWidth: exportWidth + 120,
+        windowHeight: exportHeight + 120,
+        scrollX: 0,
+        scrollY: 0,
+        onclone: (clonedDoc) => {
+          const clonedFrame = clonedDoc.getElementById('captureFrame');
+          const clonedBoard = clonedDoc.getElementById('captureBoard');
+
+          if (clonedFrame) {
+            clonedFrame.style.display = 'inline-block';
+            clonedFrame.style.padding = '40px 18px 18px';
+            clonedFrame.style.background = '#ECECEC';
+            clonedFrame.style.borderRadius = '28px';
+            clonedFrame.style.margin = '0';
+          }
+
+          if (clonedBoard) {
+            clonedBoard.style.width = '1820px';
+            clonedBoard.style.maxWidth = 'none';
+            clonedBoard.style.height = 'auto';
+            clonedBoard.style.overflow = 'visible';
+            clonedBoard.style.margin = '0';
+            clonedBoard.style.boxShadow = '0 12px 36px rgba(0,0,0,.08)';
+            clonedBoard.style.paddingTop = '60px';
+          }
+
+          const clonedBody = clonedDoc.body;
+          if (clonedBody) {
+            clonedBody.style.margin = '0';
+            clonedBody.style.padding = '0';
+            clonedBody.style.background = '#ECECEC';
+            clonedBody.style.width = `${exportWidth + 40}px`;
+            clonedBody.style.overflow = 'visible';
+          }
+
+          clonedDoc.querySelectorAll('.topbar, .img-remove, .img-change').forEach(el => {
+            el.style.display = 'none';
+          });
+
+          // html2canvas가 input 내부의 굵은 한글을 위쪽에서 잘라 그리는 문제를 피하기 위해,
+          // 저장용 복제본에서는 주요 입력칸을 일반 div 텍스트로 바꾼다.
+          clonedDoc.querySelectorAll('.board-name, .name-input, .sub-input').forEach(input => {
+            const div = clonedDoc.createElement('div');
+            div.className = `${input.className} capture-static`;
+            div.textContent = input.value || input.placeholder || '';
+            div.style.lineHeight = input.classList.contains('board-name') ? '1.35' : '1.32';
+            div.style.paddingTop = input.classList.contains('board-name') ? '10px' : '7px';
+            div.style.paddingBottom = input.classList.contains('board-name') ? '10px' : '8px';
+            div.style.minHeight = input.classList.contains('board-name') ? '62px' : '42px';
+            div.style.overflow = 'visible';
+            input.replaceWith(div);
+          });
+        }
+      });
+
+      const coupleName = (document.querySelector('[data-save-key="couple-name"]')?.value || 'couple-reference-board').trim();
+      const safeName = coupleName.replace(/[\\/:*?"<>|]/g, '_') || 'couple-reference-board';
+      const link = document.createElement('a');
+      link.download = `${safeName}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      setStatus('PNG 저장 완료');
+    } catch (error) {
+      console.error(error);
+      setStatus('PNG 저장 실패');
+      alert('이미지 저장 중 오류가 발생했어요. 사진이 아주 많거나 브라우저 메모리가 부족할 때 생길 수 있어요.');
+    } finally {
+      exportBtn.disabled = false;
+      exportBtn.textContent = originalText;
+    }
+  });
+
+  window.addEventListener('beforeunload', () => {
+    imageBoxes.forEach(box => {
+      if (box.dataset.objectUrl) URL.revokeObjectURL(box.dataset.objectUrl);
+    });
+  });
+
+  restoreText();
+  restoreImages().then(() => setStatus('자동저장 준비됨'));
+})();
+</script>
+</body>
+</html>
