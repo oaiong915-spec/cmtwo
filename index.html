@@ -10,7 +10,7 @@
 <style>
 :root{
   --ink:#111111;
-  --muted:#8a8a8a;
+  --muted:#555555;
   --line:#dddddd;
   --soft:#f6f6f6;
   --box:#d9d9d9;
@@ -112,7 +112,7 @@ button{cursor:pointer;}
   align-items:start;
 }
 
-.panel-kicker{font-size:11px; font-weight:900; letter-spacing:.16em; color:var(--muted); margin-bottom:10px; line-height:1.45;}
+.panel-kicker{font-size:11px; font-weight:900; letter-spacing:.16em; color:#666; margin-bottom:10px; line-height:1.45;}
 .char-panel,.couple-panel{
   background:var(--soft);
   border:1px solid #e8e8e8;
@@ -140,7 +140,7 @@ button{cursor:pointer;}
 
 .hero-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:10px; margin-bottom:12px;}
 .ref-card{min-width:0;}
-.mini-label{font-size:12px; font-weight:700; margin-bottom:6px; line-height:1.35; min-height:16px;}
+.mini-label{font-size:12px; font-weight:800; margin-bottom:6px; line-height:1.35; min-height:16px; color:#111;}
 .imgbox{
   position:relative;
   background:var(--box);
@@ -167,7 +167,7 @@ button{cursor:pointer;}
 .imgbox.dragover::after{content:'여기에 놓아주세요'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.48); color:#fff; font-size:13px; font-weight:700; z-index:5;}
 
 .detail-block{margin-top:12px;}
-.block-title{display:flex; align-items:baseline; gap:8px; font-size:14px; font-weight:900; margin-bottom:8px; line-height:1.3;}
+.block-title{display:flex; align-items:center; gap:8px; font-size:14px; font-weight:900; margin-bottom:8px; line-height:1.3; color:#111;}
 .block-title span{font-size:11px; font-weight:500; color:var(--muted);}
 .triple-grid{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:8px;}
 .double-grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px;}
@@ -175,11 +175,11 @@ button{cursor:pointer;}
 
 .text-stack{display:grid; gap:10px; margin-top:12px;}
 .write-card{display:flex; flex-direction:column; background:#fff; border:1px solid #e6e6e6; border-radius:14px; padding:10px 12px; min-width:0;}
-.write-title{font-size:13px; font-weight:900; margin-bottom:8px; line-height:1.35;}
+.write-title{font-size:13px; font-weight:900; margin-bottom:8px; line-height:1.35; color:#111;}
 .list{display:grid; gap:0;}
 .list-row{display:flex; align-items:center; gap:10px; border-top:1px solid var(--line); min-height:34px; padding:4px 0;}
-.list-row .num{width:14px; flex-shrink:0; color:var(--muted); font-size:12px;}
-.list-row input{flex:1; min-width:0; border:0; background:transparent; outline:none; font-size:12px; line-height:1.4; padding:4px 0;}
+.list-row .num{width:14px; flex-shrink:0; color:#666; font-size:12px; font-weight:700;}
+.list-row input{flex:1; min-width:0; border:0; background:transparent; outline:none; font-size:12px; line-height:1.4; padding:4px 0; color:#111; font-weight:700;}
 
 .couple-title{font-size:24px; font-weight:900; margin:0 0 8px; line-height:1.25; text-align:center;}
 .couple-sub{font-size:12px; color:var(--muted); margin:0 0 12px; line-height:1.6; text-align:center;}
@@ -193,7 +193,26 @@ button{cursor:pointer;}
   .board{box-shadow:none; margin:0;}
   .img-remove,.img-change{display:none !important;}
 }
-</style>
+
+.part-name-input{
+  width:72px;
+  border:0;
+  border-bottom:1px solid #BEBEBE;
+  background:transparent;
+  outline:none;
+  color:#111;
+  font-size:14px;
+  font-weight:900;
+  line-height:1.25;
+  padding:0 0 2px;
+}
+.part-name-input::placeholder{color:#777; opacity:1;}
+.capture-static.part-name-input{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+
 .capture-static{
   box-sizing:border-box;
   white-space:pre-wrap;
@@ -201,7 +220,8 @@ button{cursor:pointer;}
 }
 .capture-static.board-name,
 .capture-static.name-input,
-.capture-static.sub-input{
+.capture-static.sub-input,
+.capture-static.part-name-input{
   display:flex;
   align-items:center;
 }
@@ -209,6 +229,145 @@ button{cursor:pointer;}
   justify-content:center;
 }
 
+
+.color-grid{
+  display:grid;
+  grid-template-columns:repeat(6, minmax(0,1fr));
+  gap:8px;
+  margin-bottom:14px;
+}
+.color-grid.pair{
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  margin-bottom:14px;
+}
+.color-item{min-width:0;}
+.color-label{
+  display:block;
+  font-size:11px;
+  font-weight:800;
+  color:#555;
+  line-height:1.3;
+  margin-bottom:5px;
+  text-align:center;
+}
+.color-chip-wrap{
+  position:relative;
+  height:42px;
+  border-radius:10px;
+  border:1px solid #cfcfcf;
+  overflow:hidden;
+  background:#d7d7d7;
+}
+.color-chip-input{
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  width:100%;
+  height:100%;
+  display:block;
+  padding:0;
+  background:transparent;
+  cursor:pointer;
+}
+.color-chip-input::-webkit-color-swatch-wrapper{padding:0;}
+.color-chip-input::-webkit-color-swatch{border:0; border-radius:0;}
+.color-chip-input::-moz-color-swatch{border:0;}
+.capture-static.color-chip-static{
+  width:100%;
+  height:100%;
+  display:block;
+  border-radius:0;
+}
+
+
+/* 사진 크기 조절 — 업로드 기능과 독립적으로 동작 */
+.imgbox img{
+  transform-origin:center center;
+  transition:transform .08s linear;
+}
+.zoom-row{
+  display:none;
+  align-items:center;
+  gap:6px;
+  width:100%;
+  margin-top:6px;
+  min-height:28px;
+}
+.ref-card:has(.imgbox.has-image) .zoom-row{
+  display:flex;
+}
+.zoom-btn{
+  flex:0 0 25px;
+  width:25px;
+  height:25px;
+  border:1px solid #cfcfcf;
+  border-radius:50%;
+  padding:0;
+  background:#fff;
+  color:#111;
+  font-size:16px;
+  font-weight:900;
+  line-height:1;
+}
+.zoom-range{
+  flex:1 1 auto;
+  min-width:20px;
+  width:100%;
+  accent-color:#111;
+}
+.zoom-value{
+  flex:0 0 34px;
+  width:34px;
+  text-align:right;
+  font-size:9px;
+  font-weight:800;
+  color:#555;
+}
+
+
+.move-grid{
+  display:none;
+  grid-template-columns:40px 1fr 36px;
+  gap:6px;
+  align-items:center;
+  width:100%;
+  margin-top:5px;
+}
+.ref-card:has(.imgbox.has-image) .move-grid{
+  display:grid;
+}
+.move-label{
+  font-size:10px;
+  font-weight:800;
+  color:#555;
+}
+.move-range{
+  width:100%;
+  accent-color:#111;
+}
+.move-value{
+  text-align:right;
+  font-size:9px;
+  font-weight:800;
+  color:#666;
+}
+.move-reset{
+  display:none;
+  margin-top:5px;
+  width:100%;
+  border:1px solid #cfcfcf;
+  background:#fff;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:11px;
+  font-weight:800;
+  color:#111;
+}
+.ref-card:has(.imgbox.has-image) .move-reset{
+  display:block;
+}
+
+</style>
 </head>
 <body>
 <div class="page">
@@ -243,6 +402,8 @@ button{cursor:pointer;}
         <input class="name-input" data-save-key="a-name" placeholder="A 캐릭터 이름" autocomplete="off">
         <input class="sub-input" data-save-key="a-sub" placeholder="애칭 / 구분 / 짧은 메모" autocomplete="off">
       </div>
+
+      <div class="color-grid"><div class="color-item"><label class="color-label">기타</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-other" value="#cccccc" aria-label="기타 색상"></div></div><div class="color-item"><label class="color-label">머리(왼)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-hair-left" value="#b9b1a6" aria-label="머리(왼) 색상"></div></div><div class="color-item"><label class="color-label">머리(끝)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-hair-tip" value="#9d9588" aria-label="머리(끝) 색상"></div></div><div class="color-item"><label class="color-label">눈(왼쪽)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-eye-left" value="#f0cf45" aria-label="눈(왼쪽) 색상"></div></div><div class="color-item"><label class="color-label">눈(오른쪽)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-eye-right" value="#e9b92e" aria-label="눈(오른쪽) 색상"></div></div><div class="color-item"><label class="color-label">피부</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-skin" value="#d8c0b0" aria-label="피부 색상"></div></div></div>
 
       <div class="hero-grid">
         
@@ -296,7 +457,7 @@ button{cursor:pointer;}
       </div>
 
       <div class="detail-block">
-        <div class="block-title">뿔 <span>앞 · 옆 · 뒤</span></div>
+        <div class="block-title"><input class="part-name-input" data-save-key="a-horn-label" value="뿔" placeholder="이름" autocomplete="off"> <span>앞 · 옆 · 뒤</span></div>
         <div class="triple-grid">
           
     <div class="ref-card">
@@ -344,7 +505,7 @@ button{cursor:pointer;}
       </div>
 
       <div class="detail-block">
-        <div class="block-title">꼬리 <span>앞 · 옆 · 뒤</span></div>
+        <div class="block-title"><input class="part-name-input" data-save-key="a-tail-label" value="꼬리" placeholder="이름" autocomplete="off"> <span>앞 · 옆 · 뒤</span></div>
         <div class="triple-grid">
           
     <div class="ref-card">
@@ -499,6 +660,8 @@ button{cursor:pointer;}
           <h2 class="couple-title">자컾 메모</h2>
           <p class="couple-sub">2인 자료와 필요한 공용 메모를 적어두는 칸.</p>
 
+          <div class="color-grid pair"><div class="color-item"><label class="color-label">대표 1</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="pair-대표1" value="#c5b3d8" aria-label="대표 1 색상"></div></div><div class="color-item"><label class="color-label">대표 2</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="pair-대표2" value="#9cb4d8" aria-label="대표 2 색상"></div></div></div>
+
           <div class="couple-image-grid">
             
     <div class="ref-card">
@@ -638,6 +801,8 @@ button{cursor:pointer;}
         <input class="sub-input" data-save-key="b-sub" placeholder="애칭 / 구분 / 짧은 메모" autocomplete="off">
       </div>
 
+      <div class="color-grid"><div class="color-item"><label class="color-label">기타</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-other" value="#cccccc" aria-label="기타 색상"></div></div><div class="color-item"><label class="color-label">머리(왼)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-hair-left" value="#b9b1a6" aria-label="머리(왼) 색상"></div></div><div class="color-item"><label class="color-label">머리(끝)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-hair-tip" value="#9d9588" aria-label="머리(끝) 색상"></div></div><div class="color-item"><label class="color-label">눈(왼쪽)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-eye-left" value="#f0cf45" aria-label="눈(왼쪽) 색상"></div></div><div class="color-item"><label class="color-label">눈(오른쪽)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-eye-right" value="#e9b92e" aria-label="눈(오른쪽) 색상"></div></div><div class="color-item"><label class="color-label">피부</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-skin" value="#d8c0b0" aria-label="피부 색상"></div></div></div>
+
       <div class="hero-grid">
         
     <div class="ref-card">
@@ -690,7 +855,7 @@ button{cursor:pointer;}
       </div>
 
       <div class="detail-block">
-        <div class="block-title">뿔 <span>앞 · 옆 · 뒤</span></div>
+        <div class="block-title"><input class="part-name-input" data-save-key="b-horn-label" value="뿔" placeholder="이름" autocomplete="off"> <span>앞 · 옆 · 뒤</span></div>
         <div class="triple-grid">
           
     <div class="ref-card">
@@ -738,7 +903,7 @@ button{cursor:pointer;}
       </div>
 
       <div class="detail-block">
-        <div class="block-title">꼬리 <span>앞 · 옆 · 뒤</span></div>
+        <div class="block-title"><input class="part-name-input" data-save-key="b-tail-label" value="꼬리" placeholder="이름" autocomplete="off"> <span>앞 · 옆 · 뒤</span></div>
         <div class="triple-grid">
           
     <div class="ref-card">
@@ -900,6 +1065,7 @@ button{cursor:pointer;}
   const TEXT_KEY = 'couple-onepage-v2-custom-text';
   const DB_NAME = 'couple-onepage-v2-custom-images';
   const STORE_NAME = 'images';
+  const IMAGE_TRANSFORM_KEY = 'couple-onepage-v9-image-transform';
 
   const textFields = [...document.querySelectorAll('[data-save-key]')];
   const imageBoxes = [...document.querySelectorAll('[data-image-box]')];
@@ -911,6 +1077,72 @@ button{cursor:pointer;}
 
   let textTimer = null;
   let dbPromise = null;
+  let imageTransformState = {};
+
+  try {
+    imageTransformState = JSON.parse(localStorage.getItem(IMAGE_TRANSFORM_KEY) || '{}');
+    if (!imageTransformState || typeof imageTransformState !== 'object' || Array.isArray(imageTransformState)) {
+      imageTransformState = {};
+    }
+  } catch (error) {
+    imageTransformState = {};
+  }
+
+  const saveImageTransformState = () => {
+    try {
+      localStorage.setItem(IMAGE_TRANSFORM_KEY, JSON.stringify(imageTransformState));
+    } catch (error) {}
+  };
+
+  const clampZoom = value => Math.min(3, Math.max(0.25, Number(value) || 1));
+  const clampMove = value => Math.min(180, Math.max(-180, Number(value) || 0));
+
+  const getImageTransform = key => {
+    const raw = imageTransformState[key];
+    if (typeof raw === 'number') {
+      return { scale: clampZoom(raw), x: 0, y: 0 };
+    }
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+      return { scale: 1, x: 0, y: 0 };
+    }
+    return {
+      scale: clampZoom(raw.scale),
+      x: clampMove(raw.x),
+      y: clampMove(raw.y)
+    };
+  };
+
+  const applyImageTransform = (box, patch = {}, syncControl = true) => {
+    const key = box.dataset.imageKey;
+    const current = getImageTransform(key);
+    const next = {
+      scale: clampZoom(patch.scale ?? current.scale),
+      x: clampMove(patch.x ?? current.x),
+      y: clampMove(patch.y ?? current.y),
+    };
+
+    const img = box.querySelector('img');
+    if (img) img.style.transform = `translate(${next.x}px, ${next.y}px) scale(${next.scale})`;
+
+    imageTransformState[key] = next;
+
+    if (syncControl) {
+      const card = box.closest('.ref-card');
+      const zoomRange = card?.querySelector('.zoom-range');
+      const zoomLabel = card?.querySelector('.zoom-value');
+      const xRange = card?.querySelector('.move-range-x');
+      const yRange = card?.querySelector('.move-range-y');
+      const xLabel = card?.querySelector('.move-value-x');
+      const yLabel = card?.querySelector('.move-value-y');
+
+      if (zoomRange) zoomRange.value = String(next.scale);
+      if (zoomLabel) zoomLabel.textContent = `${Math.round(next.scale * 100)}%`;
+      if (xRange) xRange.value = String(next.x);
+      if (yRange) yRange.value = String(next.y);
+      if (xLabel) xLabel.textContent = `${Math.round(next.x)}`;
+      if (yLabel) yLabel.textContent = `${Math.round(next.y)}`;
+    }
+  };
 
   const setStatus = (msg) => {
     if (saveStatus) saveStatus.textContent = msg;
@@ -1004,6 +1236,7 @@ button{cursor:pointer;}
     box.dataset.objectUrl = objectUrl;
     img.src = objectUrl;
     box.classList.add('has-image');
+    applyImageTransform(box, getImageTransform(box.dataset.imageKey));
   };
 
   const clearPreview = (box) => {
@@ -1013,7 +1246,10 @@ button{cursor:pointer;}
       delete box.dataset.objectUrl;
     }
     img.removeAttribute('src');
+    img.style.transform = 'translate(0px, 0px) scale(1)';
     box.classList.remove('has-image');
+    delete imageTransformState[box.dataset.imageKey];
+    saveImageTransformState();
     const input = box.querySelector('input[type=file]');
     if (input) input.value = '';
   };
@@ -1021,6 +1257,8 @@ button{cursor:pointer;}
   const handleFile = async (box, file) => {
     if (!file || !file.type.startsWith('image/')) return;
     const key = box.dataset.imageKey;
+    imageTransformState[key] = { scale: 1, x: 0, y: 0 };
+    saveImageTransformState();
     showImage(box, file);
     setStatus('이미지 저장 중…');
     try {
@@ -1035,6 +1273,86 @@ button{cursor:pointer;}
     const input = box.querySelector('input[type=file]');
     const picker = box.querySelector('.img-picker');
     const remove = box.querySelector('.img-remove');
+
+    const card = box.closest('.ref-card');
+
+    const zoomRow = document.createElement('div');
+    zoomRow.className = 'zoom-row';
+    zoomRow.innerHTML = `
+      <button class="zoom-btn zoom-minus" type="button" title="축소">−</button>
+      <input class="zoom-range" type="range" min="0.25" max="3" step="0.05" value="1" aria-label="사진 크기">
+      <button class="zoom-btn zoom-plus" type="button" title="확대">+</button>
+      <span class="zoom-value">100%</span>
+    `;
+    card.appendChild(zoomRow);
+
+    const moveXRow = document.createElement('div');
+    moveXRow.className = 'move-grid';
+    moveXRow.innerHTML = `
+      <span class="move-label">가로</span>
+      <input class="move-range move-range-x" type="range" min="-180" max="180" step="1" value="0" aria-label="가로 위치">
+      <span class="move-value move-value-x">0</span>
+    `;
+    card.appendChild(moveXRow);
+
+    const moveYRow = document.createElement('div');
+    moveYRow.className = 'move-grid';
+    moveYRow.innerHTML = `
+      <span class="move-label">세로</span>
+      <input class="move-range move-range-y" type="range" min="-180" max="180" step="1" value="0" aria-label="세로 위치">
+      <span class="move-value move-value-y">0</span>
+    `;
+    card.appendChild(moveYRow);
+
+    const moveReset = document.createElement('button');
+    moveReset.className = 'move-reset';
+    moveReset.type = 'button';
+    moveReset.textContent = '위치 중앙으로';
+    card.appendChild(moveReset);
+
+    const range = zoomRow.querySelector('.zoom-range');
+    const minus = zoomRow.querySelector('.zoom-minus');
+    const plus = zoomRow.querySelector('.zoom-plus');
+    const moveX = moveXRow.querySelector('.move-range-x');
+    const moveY = moveYRow.querySelector('.move-range-y');
+
+    range.addEventListener('input', () => {
+      const state = getImageTransform(box.dataset.imageKey);
+      applyImageTransform(box, { ...state, scale: range.value });
+      saveImageTransformState();
+    });
+
+    minus.addEventListener('click', () => {
+      const state = getImageTransform(box.dataset.imageKey);
+      applyImageTransform(box, { ...state, scale: state.scale - 0.1 });
+      saveImageTransformState();
+    });
+
+    plus.addEventListener('click', () => {
+      const state = getImageTransform(box.dataset.imageKey);
+      applyImageTransform(box, { ...state, scale: state.scale + 0.1 });
+      saveImageTransformState();
+    });
+
+    moveX.addEventListener('input', () => {
+      const state = getImageTransform(box.dataset.imageKey);
+      applyImageTransform(box, { ...state, x: moveX.value });
+      saveImageTransformState();
+    });
+
+    moveY.addEventListener('input', () => {
+      const state = getImageTransform(box.dataset.imageKey);
+      applyImageTransform(box, { ...state, y: moveY.value });
+      saveImageTransformState();
+    });
+
+    moveReset.addEventListener('click', () => {
+      const state = getImageTransform(box.dataset.imageKey);
+      applyImageTransform(box, { ...state, x: 0, y: 0 });
+      saveImageTransformState();
+    });
+
+    applyImageTransform(box, getImageTransform(box.dataset.imageKey));
 
     input.addEventListener('change', () => handleFile(box, input.files?.[0]));
 
@@ -1096,6 +1414,9 @@ button{cursor:pointer;}
     textFields.forEach(el => el.value = '');
     imageBoxes.forEach(clearPreview);
     localStorage.removeItem(TEXT_KEY);
+    localStorage.removeItem(IMAGE_TRANSFORM_KEY);
+    imageTransformState = {};
+    imageBoxes.forEach(box => applyImageTransform(box, { scale: 1, x: 0, y: 0 }));
     try {
       await clearImages();
     } catch (error) {}
@@ -1162,22 +1483,51 @@ button{cursor:pointer;}
             clonedBody.style.overflow = 'visible';
           }
 
-          clonedDoc.querySelectorAll('.topbar, .img-remove, .img-change').forEach(el => {
+          clonedDoc.querySelectorAll('.topbar, .img-remove, .img-change, .zoom-row, .move-grid, .move-reset').forEach(el => {
             el.style.display = 'none';
           });
 
           // html2canvas가 input 내부의 굵은 한글을 위쪽에서 잘라 그리는 문제를 피하기 위해,
           // 저장용 복제본에서는 주요 입력칸을 일반 div 텍스트로 바꾼다.
-          clonedDoc.querySelectorAll('.board-name, .name-input, .sub-input').forEach(input => {
+          clonedDoc.querySelectorAll('.board-name, .name-input, .sub-input, .part-name-input').forEach(input => {
             const div = clonedDoc.createElement('div');
             div.className = `${input.className} capture-static`;
             div.textContent = input.value || input.placeholder || '';
-            div.style.lineHeight = input.classList.contains('board-name') ? '1.35' : '1.32';
-            div.style.paddingTop = input.classList.contains('board-name') ? '10px' : '7px';
-            div.style.paddingBottom = input.classList.contains('board-name') ? '10px' : '8px';
-            div.style.minHeight = input.classList.contains('board-name') ? '62px' : '42px';
+            if (input.classList.contains('board-name')) {
+              div.style.lineHeight = '1.35';
+              div.style.paddingTop = '10px';
+              div.style.paddingBottom = '10px';
+              div.style.minHeight = '62px';
+            } else if (input.classList.contains('part-name-input')) {
+              div.style.lineHeight = '1.25';
+              div.style.paddingTop = '0';
+              div.style.paddingBottom = '2px';
+              div.style.minHeight = '22px';
+              div.style.width = '72px';
+              div.style.borderBottom = '1px solid #BEBEBE';
+              div.style.fontSize = '14px';
+              div.style.fontWeight = '900';
+              div.style.color = '#111';
+            } else {
+              div.style.lineHeight = '1.32';
+              div.style.paddingTop = '7px';
+              div.style.paddingBottom = '8px';
+              div.style.minHeight = '42px';
+            }
             div.style.overflow = 'visible';
             input.replaceWith(div);
+          });
+
+          clonedDoc.querySelectorAll('.color-chip-input').forEach(input => {
+            const swatch = clonedDoc.createElement('div');
+            swatch.className = 'capture-static color-chip-static';
+            swatch.style.background = input.value || '#cccccc';
+            swatch.style.width = '100%';
+            swatch.style.height = '100%';
+            const wrap = input.parentElement;
+            if (wrap) {
+              wrap.replaceChildren(swatch);
+            }
           });
         }
       });
