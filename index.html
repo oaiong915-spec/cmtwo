@@ -367,6 +367,42 @@ button{cursor:pointer;}
   display:block;
 }
 
+
+.simple-name-row{
+  grid-template-columns:1fr;
+}
+.simple-name-row .name-input{
+  width:100%;
+}
+.pair-kicker{
+  text-align:center;
+  margin-bottom:14px;
+  font-size:13px;
+  color:#111;
+}
+.list-row{
+  min-height:38px;
+  padding:5px 0;
+}
+.list-row input{
+  line-height:1.6;
+  padding:6px 0;
+  min-height:28px;
+}
+.capture-static.list-text-static{
+  display:flex;
+  align-items:center;
+  flex:1;
+  min-width:0;
+  min-height:28px;
+  line-height:1.6;
+  padding:6px 0;
+  color:#111;
+  font-size:12px;
+  font-weight:700;
+  overflow:visible;
+}
+
 </style>
 </head>
 <body>
@@ -386,21 +422,20 @@ button{cursor:pointer;}
   <div class="board-wrap">
     <div class="export-frame" id="captureFrame"><main class="board" id="captureBoard">
       <header class="board-head">
-        <div class="board-side-note left">A / B 캐릭터 자료</div>
+        <div class="board-side-note left"></div>
         <div class="board-title-area">
           <div class="board-kicker">COUPLE REFERENCE BOARD</div>
           <input class="board-name" data-save-key="couple-name" placeholder="자컾 이름 / 커플명" autocomplete="off">
         </div>
-        <div class="board-side-note right">가운데는 2인 자료와 메모용</div>
+        <div class="board-side-note right"></div>
       </header>
 
       <div class="main-grid">
         
     <section class="char-panel">
       <div class="panel-kicker">CHARACTER A</div>
-      <div class="name-row">
+      <div class="name-row simple-name-row">
         <input class="name-input" data-save-key="a-name" placeholder="A 캐릭터 이름" autocomplete="off">
-        <input class="sub-input" data-save-key="a-sub" placeholder="애칭 / 구분 / 짧은 메모" autocomplete="off">
       </div>
 
       <div class="color-grid"><div class="color-item"><label class="color-label">기타</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-other" value="#cccccc" aria-label="기타 색상"></div></div><div class="color-item"><label class="color-label">머리(왼)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-hair-left" value="#b9b1a6" aria-label="머리(왼) 색상"></div></div><div class="color-item"><label class="color-label">머리(끝)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-hair-tip" value="#9d9588" aria-label="머리(끝) 색상"></div></div><div class="color-item"><label class="color-label">눈(왼쪽)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-eye-left" value="#f0cf45" aria-label="눈(왼쪽) 색상"></div></div><div class="color-item"><label class="color-label">눈(오른쪽)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-eye-right" value="#e9b92e" aria-label="눈(오른쪽) 색상"></div></div><div class="color-item"><label class="color-label">피부</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="a-skin" value="#d8c0b0" aria-label="피부 색상"></div></div></div>
@@ -656,9 +691,7 @@ button{cursor:pointer;}
     
 
         <section class="couple-panel">
-          <div class="panel-kicker">COUPLE</div>
-          <h2 class="couple-title">자컾 메모</h2>
-          <p class="couple-sub">2인 자료와 필요한 공용 메모를 적어두는 칸.</p>
+          <div class="panel-kicker pair-kicker">PAIR</div>
 
           <div class="color-grid pair"><div class="color-item"><label class="color-label">대표 1</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="pair-대표1" value="#c5b3d8" aria-label="대표 1 색상"></div></div><div class="color-item"><label class="color-label">대표 2</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="pair-대표2" value="#9cb4d8" aria-label="대표 2 색상"></div></div></div>
 
@@ -796,9 +829,8 @@ button{cursor:pointer;}
         
     <section class="char-panel">
       <div class="panel-kicker">CHARACTER B</div>
-      <div class="name-row">
+      <div class="name-row simple-name-row">
         <input class="name-input" data-save-key="b-name" placeholder="B 캐릭터 이름" autocomplete="off">
-        <input class="sub-input" data-save-key="b-sub" placeholder="애칭 / 구분 / 짧은 메모" autocomplete="off">
       </div>
 
       <div class="color-grid"><div class="color-item"><label class="color-label">기타</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-other" value="#cccccc" aria-label="기타 색상"></div></div><div class="color-item"><label class="color-label">머리(왼)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-hair-left" value="#b9b1a6" aria-label="머리(왼) 색상"></div></div><div class="color-item"><label class="color-label">머리(끝)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-hair-tip" value="#9d9588" aria-label="머리(끝) 색상"></div></div><div class="color-item"><label class="color-label">눈(왼쪽)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-eye-left" value="#f0cf45" aria-label="눈(왼쪽) 색상"></div></div><div class="color-item"><label class="color-label">눈(오른쪽)</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-eye-right" value="#e9b92e" aria-label="눈(오른쪽) 색상"></div></div><div class="color-item"><label class="color-label">피부</label><div class="color-chip-wrap"><input class="color-chip-input" type="color" data-save-key="b-skin" value="#d8c0b0" aria-label="피부 색상"></div></div></div>
@@ -1094,8 +1126,8 @@ button{cursor:pointer;}
     } catch (error) {}
   };
 
-  const clampZoom = value => Math.min(3, Math.max(0.25, Number(value) || 1));
-  const clampMove = value => Math.min(180, Math.max(-180, Number(value) || 0));
+  const clampZoom = value => Math.min(6, Math.max(0.25, Number(value) || 1));
+  const clampMove = value => Math.min(600, Math.max(-600, Number(value) || 0));
 
   const getImageTransform = key => {
     const raw = imageTransformState[key];
@@ -1280,7 +1312,7 @@ button{cursor:pointer;}
     zoomRow.className = 'zoom-row';
     zoomRow.innerHTML = `
       <button class="zoom-btn zoom-minus" type="button" title="축소">−</button>
-      <input class="zoom-range" type="range" min="0.25" max="3" step="0.05" value="1" aria-label="사진 크기">
+      <input class="zoom-range" type="range" min="0.25" max="6" step="0.05" value="1" aria-label="사진 크기">
       <button class="zoom-btn zoom-plus" type="button" title="확대">+</button>
       <span class="zoom-value">100%</span>
     `;
@@ -1290,7 +1322,7 @@ button{cursor:pointer;}
     moveXRow.className = 'move-grid';
     moveXRow.innerHTML = `
       <span class="move-label">가로</span>
-      <input class="move-range move-range-x" type="range" min="-180" max="180" step="1" value="0" aria-label="가로 위치">
+      <input class="move-range move-range-x" type="range" min="-600" max="600" step="1" value="0" aria-label="가로 위치">
       <span class="move-value move-value-x">0</span>
     `;
     card.appendChild(moveXRow);
@@ -1299,7 +1331,7 @@ button{cursor:pointer;}
     moveYRow.className = 'move-grid';
     moveYRow.innerHTML = `
       <span class="move-label">세로</span>
-      <input class="move-range move-range-y" type="range" min="-180" max="180" step="1" value="0" aria-label="세로 위치">
+      <input class="move-range move-range-y" type="range" min="-600" max="600" step="1" value="0" aria-label="세로 위치">
       <span class="move-value move-value-y">0</span>
     `;
     card.appendChild(moveYRow);
@@ -1324,13 +1356,13 @@ button{cursor:pointer;}
 
     minus.addEventListener('click', () => {
       const state = getImageTransform(box.dataset.imageKey);
-      applyImageTransform(box, { ...state, scale: state.scale - 0.1 });
+      applyImageTransform(box, { ...state, scale: state.scale - 0.15 });
       saveImageTransformState();
     });
 
     plus.addEventListener('click', () => {
       const state = getImageTransform(box.dataset.imageKey);
-      applyImageTransform(box, { ...state, scale: state.scale + 0.1 });
+      applyImageTransform(box, { ...state, scale: state.scale + 0.15 });
       saveImageTransformState();
     });
 
@@ -1515,6 +1547,15 @@ button{cursor:pointer;}
               div.style.minHeight = '42px';
             }
             div.style.overflow = 'visible';
+            input.replaceWith(div);
+          });
+
+          // 번호가 붙은 모든 메모 입력칸도 일반 텍스트로 바꿔
+          // html2canvas의 한글 상단/하단 잘림을 피한다.
+          clonedDoc.querySelectorAll('.list-row input[type="text"]').forEach(input => {
+            const div = clonedDoc.createElement('div');
+            div.className = 'capture-static list-text-static';
+            div.textContent = input.value || input.placeholder || '';
             input.replaceWith(div);
           });
 
